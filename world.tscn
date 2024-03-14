@@ -1,10 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://uwuifbushp0j"]
+[gd_scene load_steps=11 format=3 uid="uid://uwuifbushp0j"]
 
 [ext_resource type="Texture2D" uid="uid://b1ulwi0glrjoh" path="res://sunny-land/assets/environment/tileset.png" id="1_6v68g"]
 [ext_resource type="PackedScene" uid="uid://b1ldl0qo40ry" path="res://Player/Player.tscn" id="1_7h3x6"]
 [ext_resource type="Texture2D" uid="uid://dobk1a30pn8tx" path="res://sunny-land/assets/environment/back.png" id="1_x2w7x"]
 [ext_resource type="Script" path="res://BG.gd" id="2_jpf6y"]
-[ext_resource type="PackedScene" path="res://Frog.tscn" id="5_i2fam"]
+[ext_resource type="PackedScene" uid="uid://dtpmkm7a1v1jv" path="res://Frog.tscn" id="5_i2fam"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_675hp"]
 texture = ExtResource("1_6v68g")
@@ -434,6 +434,22 @@ func _process(_delta):
 	text = \"Gold: \" + str(Game.Gold)
 "
 
+[sub_resource type="GDScript" id="GDScript_0gv36"]
+script/source = "extends Node2D
+
+
+var Cherry = preload(\"res://Collectables/Cherry.tscn\")
+
+
+
+func _on_timer_timeout():
+	var cherryTemp = Cherry.instantiate()
+	var rng = RandomNumberGenerator.new()
+	var ranint = rng.randi_range(10, 400)
+	cherryTemp.position = Vector2(ranint, 360)
+	add_child(cherryTemp)
+"
+
 [node name="World" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -500,3 +516,12 @@ theme_override_colors/font_color = Color(0.964706, 0.313726, 0.105882, 1)
 theme_override_font_sizes/font_size = 23
 text = "Gold"
 script = SubResource("GDScript_4johk")
+
+[node name="Collectables" type="Node2D" parent="."]
+script = SubResource("GDScript_0gv36")
+
+[node name="Timer" type="Timer" parent="Collectables"]
+wait_time = 4.0
+autostart = true
+
+[connection signal="timeout" from="Collectables/Timer" to="Collectables" method="_on_timer_timeout"]

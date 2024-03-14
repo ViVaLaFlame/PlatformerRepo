@@ -146,7 +146,7 @@ radius = 8.0
 height = 360.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p85lj"]
-size = Vector2(15.5, 16)
+size = Vector2(15.5, 25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wcrta"]
 size = Vector2(11.5, 25)
@@ -174,7 +174,7 @@ shape = SubResource("CapsuleShape2D_j7siq")
 [node name="PalyerDeath" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PalyerDeath"]
-position = Vector2(-1, -6.25)
+position = Vector2(-0.500028, -6.24998)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_p85lj")
 
